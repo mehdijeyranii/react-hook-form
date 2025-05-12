@@ -23,6 +23,9 @@ const SimpleForm = () => {
         <input
           {...register("firstName", {
             required: "First Name is required!",
+            validate: (value) =>
+              value.length > 2 ||
+              "First name must be at least 3 characters long",
           })}
           className="border"
         />
@@ -33,6 +36,9 @@ const SimpleForm = () => {
         <input
           {...register("lastName", {
             required: "Last Name is required!",
+            validate: (value) =>
+              value.length > 2 ||
+              "Last name must be at least 3 characters long",
           })}
           className="border"
         />
