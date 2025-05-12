@@ -1,11 +1,29 @@
+import { yupResolver } from "@hookform/resolvers/yup";
 import { useFieldArray, useForm } from "react-hook-form";
+import * as yup from "yup";
 
-type Task = {
-  tasks: { title: string }[];
-};
+const schema = yup.object({
+  tasks: yup
+    .array()
+    .of(
+      yup.object({
+        title: yup.string().required("Task title is required"),
+      })
+    )
+    .min(1, "At least one task is required")
+    .required("Tasks are required"),
+});
+
+type FormData = yup.InferType<typeof schema>;
 
 const TaskForm = () => {
-  const { register, handleSubmit, control } = useForm<Task>({
+  const {
+    register,
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm<FormData>({
+    resolver: yupResolver(schema),
     defaultValues: {
       tasks: [{ title: "" }],
     },
@@ -16,7 +34,7 @@ const TaskForm = () => {
     name: "tasks",
   });
 
-  const onSubmit = (data: Task) => {
+  const onSubmit = (data: FormData) => {
     console.log(data);
   };
 
@@ -41,8 +59,17 @@ const TaskForm = () => {
           >
             Delete
           </button>
+          {errors.tasks?.[index]?.title && (
+            <p className="text-rose-600 text-xs">
+              {errors.tasks[index]?.title?.message}
+            </p>
+          )}
         </div>
       ))}
+
+      {errors.tasks?.message && (
+        <p className="text-rose-600 text-xs">{errors.tasks.message}</p>
+      )}
 
       <button
         type="button"
