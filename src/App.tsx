@@ -1,6 +1,7 @@
 import React from "react";
 import SimpleForm from "./components/SimpleForm";
 import RegisterForm from "./components/RegisterForm";
+import BookForm from "./components/BookForm";
 
 const App: React.FC = () => {
   return (
@@ -8,6 +9,8 @@ const App: React.FC = () => {
       <SimpleForm />
       <hr />
       <RegisterForm />
+      <hr />
+      <BookForm />
     </div>
   );
 };
