@@ -1,9 +1,12 @@
-import React from 'react'
+import React from "react";
+import SimpleForm from "./components/SimpleForm";
 
 const App: React.FC = () => {
   return (
-    <div className='text-4xl'>App</div>
-  )
-}
+    <div className="p-5">
+      <SimpleForm />
+    </div>
+  );
+};
 
-export default App
+export default App;
