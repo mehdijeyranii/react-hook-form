@@ -1,4 +1,11 @@
 import { useForm } from "react-hook-form";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+
+const schema = yup.object({
+  firstName: yup.string().required("First name is required"),
+  lastName: yup.string().required("Last name is required"),
+});
 
 type FormData = {
   firstName: string;
@@ -10,7 +17,9 @@ const SimpleForm = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormData>();
+  } = useForm<FormData>({
+    resolver: yupResolver(schema),
+  });
 
   const onSubmit = (data: FormData) => {
     console.log(data);
@@ -20,28 +29,12 @@ const SimpleForm = () => {
     <form onSubmit={handleSubmit(onSubmit)}>
       <div>
         <label htmlFor="firstName">First Name:</label>
-        <input
-          {...register("firstName", {
-            required: "First Name is required!",
-            validate: (value) =>
-              value.length > 2 ||
-              "First name must be at least 3 characters long",
-          })}
-          className="border"
-        />
+        <input {...register("firstName")} className="border" />
         {errors.firstName && <p>{errors.firstName.message}</p>}
       </div>
       <div>
         <label htmlFor="lastName">Last Name:</label>
-        <input
-          {...register("lastName", {
-            required: "Last Name is required!",
-            validate: (value) =>
-              value.length > 2 ||
-              "Last name must be at least 3 characters long",
-          })}
-          className="border"
-        />
+        <input {...register("lastName")} className="border" />
         {errors.lastName && <p>{errors.lastName.message}</p>}
       </div>
       <button type="submit">Submit</button>
