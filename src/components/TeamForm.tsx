@@ -41,6 +41,15 @@ const TeamForm = () => {
   const onSubmit = (data: FormData) => {
     console.log("Team Members:", data.members);
   };
+
+  const reversedString = yup.string().test(
+    "is-james",
+    (d) => `${d} is not james`,
+    (value) => value == null || value == "james"
+  );
+
+  console.log(reversedString);
+
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 my-4">
       {fields.map((field, index) => (
