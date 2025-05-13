@@ -1,15 +1,16 @@
 import React from "react";
-import SimpleForm from "./components/SimpleForm";
-import RegisterForm from "./components/RegisterForm";
-import BookForm from "./components/BookForm";
-import TaskForm from "./components/TaskForm";
-import TeamForm from "./components/TeamForm";
-import SignupForm from "./components/SignupForm";
+import NestedForm from "./components/NestedForm";
+// import SimpleForm from "./components/SimpleForm";
+// import RegisterForm from "./components/RegisterForm";
+// import BookForm from "./components/BookForm";
+// import TaskForm from "./components/TaskForm";
+// import TeamForm from "./components/TeamForm";
+// import SignupForm from "./components/SignupForm";
 
 const App: React.FC = () => {
   return (
     <div className="p-5">
-      <SimpleForm />
+      {/* <SimpleForm />
       <hr />
       <RegisterForm />
       <hr />
@@ -19,7 +20,8 @@ const App: React.FC = () => {
       <hr />
       <TeamForm />
       <hr />
-      <SignupForm />
+      <SignupForm /> */}
+      <NestedForm />
     </div>
   );
 };
