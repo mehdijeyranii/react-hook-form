@@ -3,6 +3,8 @@ import SimpleForm from "./components/SimpleForm";
 import RegisterForm from "./components/RegisterForm";
 import BookForm from "./components/BookForm";
 import TaskForm from "./components/TaskForm";
+import TeamForm from "./components/TeamForm";
+import SignupForm from "./components/SignupForm";
 
 const App: React.FC = () => {
   return (
@@ -14,6 +16,10 @@ const App: React.FC = () => {
       <BookForm />
       <hr />
       <TaskForm />
+      <hr />
+      <TeamForm />
+      <hr />
+      <SignupForm />
     </div>
   );
 };

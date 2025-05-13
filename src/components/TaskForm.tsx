@@ -1,8 +1,20 @@
+import { yupResolver } from "@hookform/resolvers/yup";
 import { useFieldArray, useForm } from "react-hook-form";
+import * as yup from "yup";
 
-type FormData = {
-  tasks: { title: string }[];
-};
+const schema = yup.object({
+  tasks: yup
+    .array()
+    .of(
+      yup.object({
+        title: yup.string().required("Task title is required"),
+      })
+    )
+    .min(1, "At least one task is required")
+    .required("Tasks are required"),
+});
+
+type FormData = yup.InferType<typeof schema>;
 
 const TaskForm = () => {
   const {
@@ -11,8 +23,9 @@ const TaskForm = () => {
     control,
     formState: { errors },
   } = useForm<FormData>({
+    resolver: yupResolver(schema),
     defaultValues: {
-      tasks: [{ title: "" }],
+      tasks: [],
     },
   });
 
@@ -51,6 +64,17 @@ const TaskForm = () => {
           </button>
         </div>
       ))}
+
+      {fields.length === 0 && (
+        <p className="w-full p-5 bg-amber-100 text-sm text-slate-800">
+          No tasks have been added. Please add at least one task.
+        </p>
+      )}
+
+      {errors.tasks?.message && (
+        <p className="text-rose-600 text-sm mt-1">{errors.tasks.message}</p>
+      )}
+
       <button
         onClick={() => append({ title: "" })}
         type="button"
